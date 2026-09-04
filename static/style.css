@@ -144,6 +144,16 @@ h3 { font-size: var(--fs-lg); }
 .pl-reviews .tags { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-3); font-size: var(--fs-xs); color: var(--text-3); }
 .pl-reviews .reply { font-size: var(--fs-sm); color: var(--text-2); padding-left: var(--sp-3); border-left: 2px solid var(--line); }
 
+/* 원장 */
+.director-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: var(--sp-8); align-items: center; }
+.director-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; border-radius: var(--r-md); background: var(--gray); }
+.director-intro { display: grid; gap: var(--sp-3); margin-top: var(--sp-5); max-width: 52ch; }
+.director-intro p { font-size: var(--fs-lg); line-height: 1.6; }
+.cv { list-style: none; margin: var(--sp-3) 0 0; padding: 0; display: grid; gap: var(--sp-2); font-size: var(--fs-sm); }
+.cv li { padding-left: var(--sp-4); position: relative; color: var(--text-2); }
+.cv li::before { content: ""; position: absolute; left: 0; top: .7em; width: 6px; height: 1px; background: var(--text-1); }
+@media (max-width: 760px) { .director-grid { grid-template-columns: 1fr; gap: var(--sp-6); } .director-photo img { aspect-ratio: 4 / 5; } }
+
 /* 손글씨 후기 */
 .hand-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-5); }
 @media (max-width: 760px) { .hand-grid { grid-template-columns: 1fr; } }
