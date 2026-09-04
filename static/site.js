@@ -9,6 +9,12 @@
       toggle.textContent = open ? '닫기' : '메뉴';
     });
   }
+  window.addEventListener('load', function () {   // 히어로 2~5장은 첫 화면이 다 그려진 뒤에 받는다
+    document.querySelectorAll('.hero-photo img[data-src]').forEach(function (img) {
+      if (img.dataset.srcset) { img.srcset = img.dataset.srcset; img.sizes = img.dataset.sizes || ''; }
+      img.src = img.dataset.src;
+    });
+  });
   document.querySelectorAll('.ba').forEach(function (ba) {
     var range = ba.querySelector('input[type="range"]');
     if (!range) return;

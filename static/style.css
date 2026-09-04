@@ -301,6 +301,13 @@ h3 { font-size: var(--fs-lg); }
   .bar .btn { width: 100%; }
 }
 
+/* 사실 블록 — 시술 안내·FAQ 위. 검색엔진과 AI가 옮겨 적기 좋은 짧은 항목 */
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--sp-5) var(--sp-6); margin: 0; border-top: 1px solid var(--black); padding-top: var(--sp-5); }
+.facts div { min-width: 0; }
+.facts dt { font-size: var(--fs-sm); color: var(--text-2); }
+.facts dd { margin: var(--sp-1) 0 0; font-size: var(--fs-base); font-weight: 600; letter-spacing: -0.01em; }
+@media (max-width: 760px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
 /* 스크롤 등장 — JS가 .reveal을 붙인 요소만. 투명도·이동만 움직인다 */
 .reveal { opacity: 0; transform: translateY(12px); transition: opacity 320ms ease-out, transform 320ms ease-out; }
 .reveal.in { opacity: 1; transform: none; }
