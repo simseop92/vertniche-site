@@ -15,7 +15,7 @@
     tabs.querySelectorAll('button').forEach(function (btn) {
       btn.addEventListener('click', function () {
         var group = btn.getAttribute('data-group');
-        tabs.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-selected', b === btn ? 'true' : 'false'); });
+        tabs.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
         grid.querySelectorAll('figure').forEach(function (fig) {
           fig.hidden = group !== 'all' && fig.getAttribute('data-group') !== group;
         });
