@@ -249,7 +249,7 @@ h3 { font-size: var(--fs-lg); }
 .kv { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 .kv li { display: grid; grid-template-columns: 96px 1fr; gap: var(--sp-4); padding: var(--sp-3) 0; border-bottom: 1px solid var(--line); font-size: var(--fs-sm); }
 .kv li span:first-child { color: var(--text-2); }
-.map { aspect-ratio: 4 / 3; border-radius: var(--r-md); background: var(--gray); color: var(--white); display: flex; align-items: flex-end; padding: var(--sp-5); }
+.map-placeholder { aspect-ratio: 4 / 3; border-radius: var(--r-md); background: var(--gray); color: var(--white); display: flex; align-items: flex-end; padding: var(--sp-5); }
 @media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; } }
 
 /* 공간 사진 — 풀블리드 띠. 글자를 얹지 않는다 */
@@ -307,6 +307,35 @@ h3 { font-size: var(--fs-lg); }
 .facts dt { font-size: var(--fs-sm); color: var(--text-2); }
 .facts dd { margin: var(--sp-1) 0 0; font-size: var(--fs-base); font-weight: 600; letter-spacing: -0.01em; }
 @media (max-width: 760px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* 주제 페이지 — 작성자 줄, 요약, 비교표, 관련 링크, 카드 */
+.byline { font-size: var(--fs-sm); color: var(--text-2); margin-top: var(--sp-4); }
+.lede-block { display: grid; gap: var(--sp-3); margin-top: var(--sp-5); max-width: 68ch; }
+.lede-block p { font-size: var(--fs-lg); line-height: 1.6; }
+.lede-block p:first-child { font-weight: 600; color: var(--text-1); }
+.topic .wrap { max-width: 1120px; }
+.topic-body, .topic-section { max-width: 68ch; }
+.topic-section { margin-top: var(--sp-8); }
+.topic-section h2 { font-size: var(--fs-xl); margin-bottom: var(--sp-3); }
+.topic-section p + p { margin-top: var(--sp-3); }
+.tldr { list-style: none; margin: var(--sp-6) 0 0; padding: var(--sp-4) 0 var(--sp-4) var(--sp-4); border-left: 3px solid var(--black); display: grid; gap: var(--sp-2); font-size: var(--fs-base); }
+.tldr li::before { content: "— "; color: var(--text-2); }
+table.cmp { width: 100%; max-width: 68ch; border-collapse: collapse; margin-top: var(--sp-8); font-size: var(--fs-sm); }
+table.cmp caption { text-align: left; font-weight: 600; font-size: var(--fs-base); padding-bottom: var(--sp-3); }
+table.cmp th, table.cmp td { text-align: left; vertical-align: top; padding: var(--sp-3) var(--sp-3) var(--sp-3) 0; border-top: 1px solid var(--line); }
+table.cmp th { font-weight: 600; border-top: 1px solid var(--black); font-size: var(--fs-xs); letter-spacing: .04em; color: var(--text-2); }
+.related { margin-top: var(--sp-8); max-width: 68ch; }
+.related h2 { font-size: var(--fs-lg); margin-bottom: var(--sp-3); }
+.related ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.related li a { display: block; padding: var(--sp-3) 0; border-bottom: 1px solid var(--line); font-weight: 600; }
+.topic-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-5); max-width: none; }
+.topic-grid .card { display: block; padding: var(--sp-5) 0 0; border-top: 1px solid var(--black); }
+.topic-grid .card h3 { font-size: var(--fs-lg); }
+.topic-grid .card p { color: var(--text-2); font-size: var(--fs-sm); margin-top: var(--sp-2); }
+.topic-grid .card:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+@media (max-width: 760px) { .topic-grid { grid-template-columns: 1fr; } table.cmp { display: block; overflow-x: auto; } }
+iframe.map { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--r-md); display: block; }
+@media (max-width: 760px) { iframe.map { aspect-ratio: 4 / 3; } }
 
 /* 스크롤 등장 — JS가 .reveal을 붙인 요소만. 투명도·이동만 움직인다 */
 .reveal { opacity: 0; transform: translateY(12px); transition: opacity 320ms ease-out, transform 320ms ease-out; }
