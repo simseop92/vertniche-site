@@ -9,6 +9,11 @@
       toggle.textContent = open ? '닫기' : '메뉴';
     });
   }
+  document.querySelectorAll('.ba').forEach(function (ba) {
+    var range = ba.querySelector('input[type="range"]');
+    if (!range) return;
+    range.addEventListener('input', function () { ba.style.setProperty('--pos', range.value + '%'); });
+  });
   document.querySelectorAll('[data-tabs]').forEach(function (tabs) {
     var grid = document.querySelector(tabs.getAttribute('data-tabs'));
     if (!grid) return;

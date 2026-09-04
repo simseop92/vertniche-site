@@ -67,12 +67,20 @@ h3 { font-size: var(--fs-lg); }
 /* 히어로 */
 .hero { padding: var(--sp-8) 0 var(--section); }   /* 아래를 더 무겁게 — 히어로가 페이지에 앉는다 */
 .hero-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: var(--sp-8); align-items: end; }
-.hero h1 { font-size: var(--fs-4xl); font-weight: 600; margin-top: var(--sp-4); }
+.hero h1 { font-size: var(--fs-4xl); font-weight: 800; margin-top: var(--sp-4); }
+/* 첫 화면 한 번만 움직인다. 320ms ease-out, 글자 → 사진 순. */
+@keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.hero-grid > div > * { animation: rise 320ms ease-out both; }
+.hero-grid > div > *:nth-child(2) { animation-delay: 60ms; }
+.hero-grid > div > *:nth-child(3) { animation-delay: 120ms; }
+.hero-grid > div > *:nth-child(4) { animation-delay: 180ms; }
+.hero-photo { animation: rise 320ms ease-out 120ms both; }
+.stats { animation: rise 320ms ease-out 240ms both; }
 .hero .lede { font-size: var(--fs-lg); color: var(--text-2); margin-top: var(--sp-5); max-width: 34ch; }
 .hero .actions { margin-top: var(--sp-6); }
 .hero-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-md); }
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); margin-top: var(--sp-8); padding-top: var(--sp-5); border-top: 1px solid var(--line); }
-.stats b { display: block; font-family: var(--latin); font-size: var(--fs-2xl); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.stats b { display: block; font-family: var(--latin); font-size: var(--fs-3xl); font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; font-variant-numeric: tabular-nums; }
 .stats span { display: block; font-size: var(--fs-sm); color: var(--text-2); margin-top: var(--sp-1); }
 @media (max-width: 760px) {
   .hero h1 { font-size: 40px; }
@@ -101,6 +109,47 @@ h3 { font-size: var(--fs-lg); }
 .reasons h3 { font-size: var(--fs-xl); }
 .reasons p { color: var(--text-2); margin-top: var(--sp-3); }
 @media (max-width: 760px) { .reasons { grid-template-columns: 1fr; gap: var(--sp-6); } }
+
+/* 다크 섹션 — 흰 화면만 이어지지 않게. 다크 위 옐로우 숫자는 허용(대비 13.8:1) */
+.section-dark { background: var(--black); color: var(--white); border-top: 0; }
+.section-dark .section-head p, .section-dark .steps p { color: #B4B4B4; }
+.section-dark .steps li { border-top-color: rgba(255, 255, 255, .18); }
+.section-dark .steps li::before { color: var(--yellow); }
+.section-dark + .section { border-top: 0; }
+
+/* 전후 슬라이더 */
+.ba-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-5); }
+@media (max-width: 900px) { .ba-grid { grid-template-columns: 1fr; gap: var(--sp-6); } }
+.ba { margin: 0; }
+/* 정사각으로 잘라 아래쪽 워터마크 띠를 프레임 밖으로 보낸다. 눈썹은 위쪽에 있다. */
+.ba-frame { position: relative; aspect-ratio: 1 / 1; overflow: hidden; border-radius: var(--r-md); background: var(--gray); user-select: none; -webkit-user-select: none; touch-action: pan-y; }
+.ba-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 60%; }
+.ba-after { clip-path: inset(0 0 0 var(--pos)); }
+.ba-handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; background: var(--white); transform: translateX(-1px); pointer-events: none; }
+.ba-handle::after { content: "↔"; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border-radius: var(--r-full); background: var(--white); color: var(--black); font-family: var(--latin); font-size: var(--fs-sm); font-weight: 600; display: grid; place-items: center; }
+.ba-tag { position: absolute; bottom: var(--sp-3); font-family: var(--latin); font-size: var(--fs-xs); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; padding: var(--sp-1) var(--sp-2); border-radius: var(--r-sm); background: rgba(10, 10, 10, .72); color: var(--white); pointer-events: none; }
+.ba-tag-b { left: var(--sp-3); }
+.ba-tag-a { right: var(--sp-3); }
+.ba-frame input[type="range"] { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; -webkit-appearance: none; appearance: none; }
+.ba-frame input[type="range"]:focus-visible + * { outline: 2px solid var(--yellow); }
+.ba figcaption { font-size: var(--fs-sm); color: var(--text-2); margin-top: var(--sp-2); }
+
+/* 플레이스 방문자 리뷰 — 박스 없이 선으로 나눈 목록 */
+.pl-reviews { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 var(--sp-6); border-top: 1px solid var(--line); }
+@media (max-width: 900px) { .pl-reviews { grid-template-columns: 1fr; } }
+.pl-reviews li { padding: var(--sp-5) 0; border-bottom: 1px solid var(--line); display: grid; gap: var(--sp-2); align-content: start; }
+.pl-reviews .who { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-3); font-size: var(--fs-sm); color: var(--text-2); font-variant-numeric: tabular-nums; }
+.pl-reviews .who b { color: var(--text-1); font-weight: 600; }
+.pl-reviews .body { font-size: var(--fs-base); line-height: 1.7; }
+.pl-reviews .tags { display: flex; flex-wrap: wrap; gap: var(--sp-1) var(--sp-3); font-size: var(--fs-xs); color: var(--text-3); }
+.pl-reviews .reply { font-size: var(--fs-sm); color: var(--text-2); padding-left: var(--sp-3); border-left: 2px solid var(--line); }
+
+/* 손글씨 후기 */
+.hand-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-5); }
+@media (max-width: 760px) { .hand-grid { grid-template-columns: 1fr; } }
+.hand { margin: 0; }
+.hand img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-md); }
+.hand figcaption { margin-top: var(--sp-3); font-size: var(--fs-lg); font-weight: 600; letter-spacing: -0.01em; line-height: 1.4; }
 
 /* 시술 흐름 — 진짜 순서라 번호를 쓴다 */
 .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--sp-5); counter-reset: step; }
