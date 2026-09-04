@@ -190,13 +190,17 @@ h3 { font-size: var(--fs-lg); }
 .faq details[open] summary::after { content: "–"; }
 .faq .answer { color: var(--text-2); padding: 0 0 var(--sp-5); max-width: 68ch; }
 
-/* 케어 노트 목록 */
-.notes { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-.notes li { display: grid; grid-template-columns: 120px 1fr; gap: var(--sp-5); padding: var(--sp-5) 0; border-bottom: 1px solid var(--line); }
+/* 케어 노트 목록 — 썸네일 + 날짜 + 제목 */
+.notes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--sp-6) var(--sp-5); }
+.notes li a { display: grid; gap: var(--sp-2); }
+.notes img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: var(--r-md); background: var(--gray); margin-bottom: var(--sp-2); }
 .notes time { font-family: var(--latin); font-size: var(--fs-sm); color: var(--text-2); }
+.notes .ext { font-size: var(--fs-xs); color: var(--text-3); }
 .notes h3 { font-size: var(--fs-lg); }
-.notes p { color: var(--text-2); font-size: var(--fs-sm); margin-top: var(--sp-2); }
-@media (max-width: 520px) { .notes li { grid-template-columns: 1fr; gap: var(--sp-2); } }
+.notes li a:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+.notes p { color: var(--text-2); font-size: var(--fs-sm); }
+@media (max-width: 900px) { .notes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .notes { grid-template-columns: 1fr; } }
 
 /* 글 본문 */
 .article { padding: var(--section) 0; }
