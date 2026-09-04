@@ -70,15 +70,23 @@ h3 { font-size: var(--fs-lg); }
 .hero h1 { font-size: var(--fs-4xl); font-weight: 800; margin-top: var(--sp-4); }
 /* 첫 화면 한 번만 움직인다. 320ms ease-out, 글자 → 사진 순. */
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-.hero-grid > div > * { animation: rise 320ms ease-out both; }
-.hero-grid > div > *:nth-child(2) { animation-delay: 60ms; }
-.hero-grid > div > *:nth-child(3) { animation-delay: 120ms; }
-.hero-grid > div > *:nth-child(4) { animation-delay: 180ms; }
-.hero-photo { animation: rise 320ms ease-out 120ms both; }
+.hero-grid > div:first-child > * { animation: rise 320ms ease-out both; }
+.hero-grid > div:first-child > *:nth-child(2) { animation-delay: 60ms; }
+.hero-grid > div:first-child > *:nth-child(3) { animation-delay: 120ms; }
+.hero-grid > div:first-child > *:nth-child(4) { animation-delay: 180ms; }
+.hero-photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--r-md); background: var(--gray); animation: rise 320ms ease-out 120ms both; }
 .stats { animation: rise 320ms ease-out 240ms both; }
 .hero .lede { font-size: var(--fs-lg); color: var(--text-2); margin-top: var(--sp-5); max-width: 34ch; }
 .hero .actions { margin-top: var(--sp-6); }
-.hero-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-md); }
+/* 히어로 사진 순환 — 첫 장은 바닥에 고정. 2~4장은 위에 떠올라 다음 장이 다 뜬 뒤에 꺼지고, 마지막 장만 서서히 걷혀 첫 장이 드러난다(25초 주기, 흰 배경이 비치지 않는다) */
+.hero-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 45%; }
+.hero-photo img + img { opacity: 0; animation: hero-in 25s ease-out infinite both; }
+.hero-photo img:nth-child(2) { animation-delay: 5s; }
+.hero-photo img:nth-child(3) { animation-delay: 10s; }
+.hero-photo img:nth-child(4) { animation-delay: 15s; }
+.hero-photo img:nth-child(5) { animation-name: hero-out; animation-delay: 20s; }
+@keyframes hero-in { 0% { opacity: 0; } 4% { opacity: 1; } 24% { opacity: 1; } 24.01% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes hero-out { 0% { opacity: 0; } 4% { opacity: 1; } 16% { opacity: 1; } 20% { opacity: 0; } 100% { opacity: 0; } }
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); margin-top: var(--sp-8); padding-top: var(--sp-5); border-top: 1px solid var(--line); }
 .stats b { display: block; font-family: var(--latin); font-size: var(--fs-3xl); font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; font-variant-numeric: tabular-nums; }
 .stats span { display: block; font-size: var(--fs-sm); color: var(--text-2); margin-top: var(--sp-1); }
@@ -86,7 +94,7 @@ h3 { font-size: var(--fs-lg); }
   .hero h1 { font-size: 40px; }
   .hero-grid { grid-template-columns: 1fr; gap: var(--sp-6); }
   .hero-photo { order: -1; }
-  .hero-photo img { aspect-ratio: 4 / 3; }
+  .hero-photo { aspect-ratio: 4 / 3; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   /* 모바일에선 하단 바가 옐로우 1포인트다. 히어로 버튼은 검정으로. */
   .hero .btn-yellow { background: var(--black); color: var(--white); border-color: var(--black); }
@@ -226,12 +234,38 @@ h3 { font-size: var(--fs-lg); }
 .article .source { margin-top: var(--sp-8); font-size: var(--fs-sm); color: var(--text-2); }
 
 /* 오시는 길 */
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-8); }
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr) minmax(0, .8fr); gap: var(--sp-8); }
+.contact-photo { margin: 0; }
+.contact-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 40%; border-radius: var(--r-md); background: var(--gray); }
+.contact-photo figcaption { font-size: var(--fs-sm); color: var(--text-2); margin-top: var(--sp-2); }
 .kv { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 .kv li { display: grid; grid-template-columns: 96px 1fr; gap: var(--sp-4); padding: var(--sp-3) 0; border-bottom: 1px solid var(--line); font-size: var(--fs-sm); }
 .kv li span:first-child { color: var(--text-2); }
 .map { aspect-ratio: 4 / 3; border-radius: var(--r-md); background: var(--gray); color: var(--white); display: flex; align-items: flex-end; padding: var(--sp-5); }
 @media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; } }
+
+/* 공간 사진 — 풀블리드 띠. 글자를 얹지 않는다 */
+.photo-band { margin: 0; padding-bottom: var(--section); }
+.photo-band img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: center 55%; background: var(--gray); }
+.photo-band figcaption { font-size: var(--fs-sm); color: var(--text-2); padding-top: var(--sp-3); }
+@media (max-width: 760px) { .photo-band img { aspect-ratio: 4 / 3; } }
+
+/* 시술 흐름 — 단계 목록 옆에 시술실 사진. 사진 높이는 목록에 맞춘다 */
+.process { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: var(--sp-8); }
+.process .steps { grid-template-columns: 1fr; gap: 0; align-content: start; }
+.process .steps li { padding: var(--sp-4) 0; }
+.process .steps li:last-child { border-bottom: 1px solid rgba(255, 255, 255, .18); }
+.process-photo { margin: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: var(--sp-2); }
+.process-photo img { width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: center 45%; border-radius: var(--r-md); background: var(--gray); }
+.process-photo figcaption { font-size: var(--fs-sm); color: #B4B4B4; }
+@media (max-width: 900px) { .process { grid-template-columns: 1fr; } .process-photo img { height: auto; aspect-ratio: 4 / 3; } }
+
+/* 사진 두 장 나란히(원장 페이지) */
+.photo-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-5); }
+.photo-pair figure { margin: 0; }
+.photo-pair img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 45%; border-radius: var(--r-md); background: var(--gray); }
+.photo-pair figcaption { font-size: var(--fs-sm); color: var(--text-2); margin-top: var(--sp-2); }
+@media (max-width: 760px) { .photo-pair { grid-template-columns: 1fr; } }
 
 /* 다크 CTA 밴드 — 다크 위 옐로우 텍스트는 허용(대비 13.8:1) */
 .band { background: var(--black); color: var(--white); padding: var(--section) 0; }
