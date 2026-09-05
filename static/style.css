@@ -335,6 +335,9 @@ table.cmp th { font-weight: 600; border-top: 1px solid var(--black); font-size: 
 .topic-grid .card:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 760px) { .topic-grid { grid-template-columns: 1fr; } table.cmp { display: block; overflow-x: auto; } }
 iframe.map { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--r-md); display: block; }
+.video { margin: var(--sp-8) 0; }
+.video iframe { width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: var(--r-md); display: block; background: #0A0A0A; }
+.video figcaption { margin-top: var(--sp-2); font-size: var(--fs-sm); color: var(--muted); }
 @media (max-width: 760px) { iframe.map { aspect-ratio: 4 / 3; } }
 
 /* 스크롤 등장 — JS가 .reveal을 붙인 요소만. 투명도·이동만 움직인다 */
