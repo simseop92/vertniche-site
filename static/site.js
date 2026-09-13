@@ -31,6 +31,16 @@
       el.classList.add('reveal'); io.observe(el);
     });
   }
+  // 예약·카톡·전화 버튼 클릭은 같은 도메인 /go/<name>에 빈 요청을 하나 보낸다. 저장소 없이
+  // Cloudflare 존 요청 분석(경로별 요청 수)으로 세기 위해서다. href는 그대로라 이동엔 영향이 없다.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var h = a.getAttribute('href') || '';
+    var name = h.indexOf('booking.naver.com') >= 0 ? 'booking' : h.indexOf('pf.kakao.com') >= 0 ? 'kakao' : h.indexOf('tel:') === 0 ? 'tel' : '';
+    if (!name) return;
+    try { if (!(navigator.sendBeacon && navigator.sendBeacon('/go/' + name))) fetch('/go/' + name, { method: 'POST', keepalive: true }); } catch (err) {}
+  });
   document.querySelectorAll('[data-tabs]').forEach(function (tabs) {
     var grid = document.querySelector(tabs.getAttribute('data-tabs'));
     if (!grid) return;
