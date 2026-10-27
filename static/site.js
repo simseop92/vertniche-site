@@ -37,7 +37,7 @@
     var a = e.target.closest && e.target.closest('a[href]');
     if (!a) return;
     var h = a.getAttribute('href') || '';
-    var name = h.indexOf('booking.naver.com') >= 0 ? 'booking' : h.indexOf('pf.kakao.com') >= 0 ? 'kakao' : h.indexOf('tel:') === 0 ? 'tel' : '';
+    var name = /booking\.naver\.com|place\.naver\.com\/place\/\d+\/booking/.test(h) ? 'booking' : h.indexOf('pf.kakao.com') >= 0 ? 'kakao' : h.indexOf('tel:') === 0 ? 'tel' : '';
     if (!name) return;
     try { if (!(navigator.sendBeacon && navigator.sendBeacon('/go/' + name))) fetch('/go/' + name, { method: 'POST', keepalive: true }); } catch (err) {}
   });
